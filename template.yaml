@@ -76,7 +76,7 @@ Conditions:
 
 Globals:
   Function:
-    Runtime: nodejs14.x #set to this because Amplify build image has SAM version that supports up to 14
+    Runtime: nodejs20.x #set to this because Amplify build image has SAM version that supports up to 14
     Architectures:
       - arm64
     Tracing: Active
@@ -122,12 +122,12 @@ Resources:
   SharedLayer:
     Type: AWS::Serverless::LayerVersion
     Metadata:
-      BuildMethod: nodejs14.x
+      BuildMethod: nodejs20.x
       BuildArchitecture: arm64
     Properties:
       ContentUri: layers/
       CompatibleRuntimes:
-        - nodejs14.x
+        - nodejs20.x
 
   ParsePostFunction:
     Type: AWS::Serverless::Function
@@ -214,7 +214,7 @@ Resources:
           SECRET_ID: !Ref AuthTokensSecret
           OWNER: !Ref GitHubOwner
           REPO: !Ref GitHubRepo
-          COMMIT_TIME_TOLERANCE_MINUTES: 10
+          COMMIT_TIME_TOLERANCE_MINUTES: 5
           STATE_MACHINE_ARN: !Ref CrossPostStateMachine
           PATH: !Ref BlogContentPath
           NEW_CONTENT_INDICATOR: "[blog]"
